@@ -9,3 +9,7 @@ tasks:
     desc: "Run app local"
     cmds:
       - go run cmd/auth/main.go --config="./config/local.yaml"
+  migrate:
+    desc: "Apply migrations (before use, make folder in root)"
+    cmds:
+      - go run cmd/migrator/main.go --storage-path="./storage/auth.db" --migrations-path="./migrations"
