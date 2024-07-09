@@ -1,11 +1,16 @@
 package main
 
 import (
+	"log/slog"
+
 	"github.com/PolyAbit/auth/internal/config"
+	"github.com/PolyAbit/auth/internal/lib/logger"
 )
 
 func main() {
 	cfg := config.MustLoad()
+	log := logger.New(cfg.Env)
 
-	_ = cfg
+	log.Info("Init config and logger")
+	log.Info("Current config", slog.Any("config", cfg))
 }
