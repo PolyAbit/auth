@@ -1,0 +1,6 @@
+env: "local"
+storage_path: "./storage/auth.db"
+migrations_path: "./migrations"
+grpc:
+  port: 44044
+  timeout: 10h

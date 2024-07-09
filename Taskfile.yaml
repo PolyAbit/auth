@@ -1,0 +1,11 @@
+# See: https://taskfile.dev/api/
+
+version: "3"
+
+tasks:
+  run-local:
+    aliases:
+      - local
+    desc: "Run app local"
+    cmds:
+      - go run cmd/auth/main.go --config="./config/local.yaml"
