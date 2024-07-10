@@ -6,6 +6,7 @@ import (
 
 	grpcapp "github.com/PolyAbit/auth/internal/app/grpc"
 	"github.com/PolyAbit/auth/internal/services/auth"
+	"github.com/PolyAbit/auth/internal/storage/sqlite"
 )
 
 type App struct {
@@ -19,9 +20,13 @@ func New(
 	tokenTTL time.Duration,
 	tokenSecret string,
 ) *App {
-	// TODO: init storage and service
+	storage, err := sqlite.New(storagePath)
 
-	authService := auth.New(log, nil, tokenTTL, tokenSecret)
+	if err != nil {
+		panic(err)
+	}
+
+	authService := auth.New(log, storage, tokenTTL, tokenSecret)
 
 	grpcApp := grpcapp.New(log, authService, grpcPort)
 
