@@ -15,7 +15,7 @@ func main() {
 	log.Info("Init config and logger")
 	log.Info("Current config", slog.Any("config", cfg))
 
-	application := app.New(log, cfg.GRPC.Port, "", cfg.TokenTTL)
+	application := app.New(log, cfg.GRPC.Port, "", cfg.TokenTTL, cfg.TokenSecret)
 
 	application.GRPCServer.MustRun()
 }
