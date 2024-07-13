@@ -94,6 +94,13 @@ func (a *App) startGrpcServer() error {
 	return nil
 }
 
+func enableCors(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+
+			h.ServeHTTP(w, r)
+	})
+}
 func (a *App) startHttpServer(ctx context.Context) error {
 	mux := runtime.NewServeMux()
 
@@ -108,7 +115,7 @@ func (a *App) startHttpServer(ctx context.Context) error {
 
 	a.log.Info("gateway server started", slog.String("addr", fmt.Sprintf(":%d", a.httpPort)))
 
-	return http.ListenAndServe(fmt.Sprintf("localhost:%d", a.httpPort), mux)
+	return http.ListenAndServe(fmt.Sprintf("localhost:%d", a.httpPort), enableCors(mux))
 }
 
 func (a *App) Stop() {
