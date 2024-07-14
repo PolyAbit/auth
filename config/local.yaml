@@ -4,4 +4,4 @@ token_secret: "TEST"
 grpc:
   port: 44044
   timeout: 10h
-  gateway_port: 8080
+  gateway_port: 8081
